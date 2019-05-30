@@ -34,10 +34,14 @@ def getLocalIP():
     return ip
 
 
-def upload_ip(ip):
-    params = {'ip': ip}
+def upload_ip():
     while True:
         try:
+            ip = getLocalIP()
+            if len(ip.split('\.')) < 4:
+                time.sleep(3)
+                continue
+            params = {'ip': ip}
             content = requests.get(upload_ip_url, params).content
             if content['code'] == 200:
                 break
@@ -48,4 +52,4 @@ def upload_ip(ip):
 
 
 if '__main__' == __name__:
-    upload_ip(getLocalIP())
+    upload_ip()
