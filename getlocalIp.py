@@ -1,14 +1,15 @@
-#encoding:utf-8
+# encoding:utf-8
 import os
 import sys
 import time
 import socket
 import subprocess
+import requests
 
+upload_ip_url = r"http://106.12.129.87:5000/j4u/raspberry/localIp"
 
 
 def getLocalIP():
-    ip = None
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.connect(('114.114.114.114', 0))
@@ -30,4 +31,12 @@ def getLocalIP():
             return False
         ip = "over".join(ip)
     return ip
-print getLocalIP()
+
+
+def upload_ip(ip):
+    params = {'ip': ip}
+    requests.get(upload_ip_url, params)
+
+
+if '__main__' == __name__:
+    upload_ip(getLocalIP())
