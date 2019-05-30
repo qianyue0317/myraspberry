@@ -5,6 +5,7 @@ import time
 import socket
 import subprocess
 import requests
+import time
 
 upload_ip_url = r"http://106.12.129.87:5000/j4u/raspberry/localIp"
 
@@ -35,7 +36,9 @@ def getLocalIP():
 
 def upload_ip(ip):
     params = {'ip': ip}
-    requests.get(upload_ip_url, params)
+    print(requests.get(upload_ip_url, params).content)
+    with open("./text.txt",'w') as theFile:
+        theFile.write('this is a test file')
 
 
 if '__main__' == __name__:
