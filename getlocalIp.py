@@ -36,9 +36,15 @@ def getLocalIP():
 
 def upload_ip(ip):
     params = {'ip': ip}
-    print(requests.get(upload_ip_url, params).content)
-    with open("./text.txt",'w') as theFile:
-        theFile.write('this is a test file')
+    while True:
+        try:
+            content = requests.get(upload_ip_url, params).content
+            if content['code'] == 200:
+                break
+            else:
+                time.sleep(5)
+        except:
+            time.sleep(5)
 
 
 if '__main__' == __name__:
